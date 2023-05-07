@@ -1,0 +1,757 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Flutter Web Codelab (pt. 1) - Setting Up Your Flutter Web App</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements-tmp/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="flutter-web-codelab-riverpod1"
+                  title="Flutter Web Codelab (pt. 1) - Setting Up Your Flutter Web App"
+                  environment="web"
+                  feedback-link="https://romanjustcodes.web.app">
+    
+      <google-codelab-step label="Overview" duration="0">
+        <p>Welcome to the exciting world of Flutter Web!</p>
+<p><a href="https://flutter.dev/" target="_blank"><strong>Flutter</strong></a> is an open-source UI Toolkit supported by Google for building beautiful, natively-compiled user interfaces in a multi-platform fashion, using <a href="https://dart.dev/" target="_blank"><strong>Dart</strong></a>, another open-source programming language supported by Google, as its core language.</p>
+<p><a href="https://flutter.dev/multi-platform/web" target="_blank"><strong>Flutter for Web</strong></a> provides the lowest barrier to entry when it comes to becoming a profilic Flutter developer. Most of the concepts learned in Flutter can be applied in a multi-platform scenario, and web is not an exception, so join us in building compelling web apps by going through the codelabs in this series.</p>
+<h2 is-upgraded>NOTE: THIS IS NOT A BEGINNER CODELAB</h2>
+<p>(If you&#39;re looking for more beginner content, please visit some of my other codelabs <a href="https://romanjustcodes.web.app/#/workshops" target="_blank">here</a>). If you&#39;re up for the challenge, then proceed.</p>
+<p>This is a codelab series focused on Flutter Web, in which you&#39;ll learn the following:</p>
+<ul>
+<li>Building Layouts in Flutter</li>
+<li>Adding Custom Fonts</li>
+<li>Page Navigation and Nested Navigation using GoRouter</li>
+<li>Animations (Flutter and External Libraries (i.e. Rive))</li>
+<li>State Management using Riverpod</li>
+<li>Persisting state in Local Storage</li>
+<li>Responsive UI</li>
+<li>Firebase Integration: <ul>
+<li>Deploy your web apps using Firebase Hosting</li>
+<li>Pull data for your web apps from Firebase Cloud Firestore</li>
+</ul>
+</li>
+</ul>
+<p>The following screenshots depict what we&#39;ll be building throughout this series:</p>
+<ul>
+<li>A Flutter Web App for your own Personal Portfolio</li>
+<li>Shows a brief profile information</li>
+<li>Contains pages for the major social media platforms and professional content portals (Twitter, LinkedIn, Github) and for showcasing your web presence</li>
+<li>Customized and engaging visuals for each page</li>
+<li>Stores and persists the last selected option</li>
+<li>Stores the page content on the cloud using Cloud Firestore</li>
+<li>Accesible anywhere thanks to Firebase Hosting</li>
+</ul>
+<p>Are you ready??? Hit <strong>Next</strong> to proceed.</p>
+<p class="image-container"><img alt="App" src="img/ffbd3bcbf03c0be9.gif"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Pre-requisites" duration="0">
+        <h2 is-upgraded>Knowlege requirements</h2>
+<ul>
+<li>Basic knowledge in <strong>Flutter</strong> is required (i.e. know what a widget is, have tried your hand at a &#34;Hello World&#34; project in Flutter). Programming knowledge required, on any object-oriented language a plus.</li>
+</ul>
+<h2 is-upgraded>Tool / Software requirements</h2>
+<ul>
+<li>Install the <a href="https://docs.flutter.dev/get-started/install?gclid=CjwKCAiAioifBhAXEiwApzCzts2khKe1zCKO5csnFpo2bsLCh4tSVC9tFDCsklHdHFgtYghH-misTxoCeOAQAvD_BwE&gclsrc=aw.ds" target="_blank">Flutter SDK</a></li>
+<li>Install <a href="https://code.visualstudio.com/" target="_blank">Visual Studio Code</a></li>
+<li>Have the <a href="https://nodejs.org/en/download/" target="_blank">NPM Package Manager</a> installed (for installing the Firebase CLI tools later on)</li>
+<li>Have <a href="https://www.google.com/chrome/?brand=CHBD&brand=CHBD&gclid=CjwKCAiAioifBhAXEiwApzCztmHjCMFWK_6s7iBH1A7OaEXb4SBoTx6VFcmJnF7_IkXIO_jx7nEI0xoC79wQAvD_BwE&gclsrc=aw.ds" target="_blank"><strong>Chrome</strong></a> browser installed</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Set up the Project" duration="0">
+        <p>Once <strong>Flutter</strong> is installed on your machine, let&#39;s create your first Flutter project. Navigate to the folder in which this project will live.</p>
+<p>Once inside the folder, from a terminal or from VS Code&#39;s terminal, execute the command <strong>flutter create PROJECT_NAME</strong>, as such:</p>
+<pre><code language="language-flutter" class="language-flutter">flutter create PROJECT_NAME
+
+</code></pre>
+<p>This will instruct the framework to generate a startup Flutter project with all the minimum requirements to start up.</p>
+<p>You will have a folder named <strong>PROJECT_NAME</strong> or whatever name you pick (in my case I&#39;ll call it <strong>roman_web_portfolio</strong>); make sure to navigate inside this folder; the rest of the steps will depend on you being at the root of your project. You can do <code>cd PROJECT_NAME</code> or re-open VSCode with this folder as the root of your environment.</p>
+<p>From the generated files, navigate to the <strong>main.dart</strong> file. There&#39;s a bunch of boilerplate code; for now let&#39;s just test that things are running fine.</p>
+<p>Go ahead and execute the command <code>flutter run -d chrome</code> at the root of your project. This will instruct Flutter to run your project, using <strong>Chrome</strong> browser as your target device (hence the <code>-d</code> flag):</p>
+<pre><code language="language-flutter" class="language-flutter">flutter run -d chrome
+
+</code></pre>
+<p>Make sure you can see the default counter sample app:</p>
+<p class="image-container"><img alt="App" src="img/1237ecdb5105b673.png"></p>
+<p>Looking good! Click on the floating button and check that the counter in the middle of the screen goes up, just as a sanity check. If so, your project is set up, Flutter is running well - ready for the next step! Hit <strong>Next</strong> when ready.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Create the Project Structure" duration="0">
+        <p>Good organization on your project goes a long way, so let&#39;s start by setting the foundation of this project, starting by a folder structure that makes sense for this web app. I&#39;ll follow this convention even though this is a small web app, but it can grow later.</p>
+<ul>
+<li>At the root of the project (inside your project name - for me, <strong>roman_web_portfolio</strong>) add a new folder called <strong>assets</strong> with the following subfolders:</li>
+<li><strong>assets</strong><ul>
+<li><strong>images</strong>: for my image assets</li>
+<li><strong>fonts</strong>: for my custom fonts and icon fonts</li>
+<li><strong>anims</strong>: for my animations (i.e. Rive files)</li>
+</ul>
+</li>
+<li>Inside the existing <strong>lib</strong> folder, at the same level as my <strong>main.dart</strong> file, create the following:</li>
+<li><strong>lib</strong><ul>
+<li><strong>features</strong>: a folder for all the features in this web app. We&#39;ll be using a <strong>feature-first</strong> approach as opposed to <strong>layer-first</strong> approach. Each feature in turn will contain the following structure: <ul>
+<li>first, a folder with the name of the feature (i.e. navigation), and inside:</li>
+<li><strong>FEATURE_NAME</strong> (i.e. landing, welcome, navigation) <ul>
+<li><strong>presentation</strong>: a folder that will hold all presentation-related entities <ul>
+<li><strong>pages</strong>: page-level widgets that take up the whole screen</li>
+<li><strong>widgets</strong>: small-level widgets used by the page-level widgets</li>
+<li><strong>providers</strong>: the providers that feed functionality to the widgets and pages</li>
+<li><strong>viewmodels</strong>: hold the glue that binds the models and the views and provide functionality to the views</li>
+</ul>
+</li>
+<li>data <ul>
+<li><strong>models</strong>: contain the &#34;PODO&#34; (Plain Ol&#39; Dart Objects) that represent the data</li>
+<li><strong>repositories</strong>: contain the classes that perform data retrieval and accessing the data on behalf of providers and viewmodels</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>shared</strong>: a folder for shared entities and widgets used throughout the app</li>
+<li><strong>helpers</strong>: for utility classes, helper methods, enums, etc.</li>
+<li><strong>services</strong>: common services used throughout the application</li>
+<li><strong>routes</strong>: for my application routes</li>
+<li><strong>styles</strong>: for application-wide styles used (colors, fonts, etc.)</li>
+</ul>
+</li>
+</ul>
+<p>Confirm that your project structure looks like this and proceed to the next step.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Create Scaffolding and Infrastructure-Level Items" duration="0">
+        <h2 is-upgraded>Adding Colors</h2>
+<p>We need to set up some of the plumbing that powers this web app, so we&#39;ll start by adding some of the colors required by this web app. Create a class call <strong>PersonalPortfolioColors</strong> as a class that will hold all colors used throughout this app.</p>
+<p>Go to the <strong>styles</strong> folder, add a file called <strong>colors.dart</strong> and add the following class (add the required imports):</p>
+<pre><code language="language-dart" class="language-dart">import &#39;package:flutter/material.dart&#39;;
+
+class PersonalPortfolioColors {
+
+  // for the dark theme
+  static const Color mainBlue = Color(0xFF51BFD7);
+  static const Color secondaryBlue = Color(0XFF1E6B7C);
+  static const Color lightBlue = Color(0xFF5DD1EB);
+  static const Color textColor = Colors.white;
+  static const Color primaryDark = Color(0xFF1F6D7E);
+  static const Color lightLabel = Color(0xFFD5F4FB);
+  static const Color errorIcon = Color(0xFFFFB5B5);
+  static const Color errorBgTop = Color(0xFFCC2B2B);
+  static const Color errorBgBottom = Color(0xFF750E0E);
+
+  // per page
+  // welcome
+  static const Color welcomeIcon = Color(0xFFFFF1BF);
+  static const Color welcomePrimary = Color(0xFFF2C41C);
+  static const Color welcomeSecondary = Color(0xE76B4E00);
+
+  // twitter:
+  
+  static const Color twitterIcon = Color(0xFF72C9FF);
+  static const Color twitterPrimary = Color(0xFF1CA1F2);
+  static const Color twitterSecondary = Color(0xFF0C75B6);
+
+  // linkedin
+  static const Color linkedInIcon = Color(0xFF23B2FF);
+  static const Color linkedInPrimary = Color(0xFF0077B5);
+  static const Color linkedInSecondary = Color(0xFF004D76);
+
+  // web
+  static const Color webIcon = Color(0xFFD382FF);
+  static const Color webPrimary = Color(0xFF8C00D7);
+  static const Color webSecondary = Color(0xFF4D0076);
+
+  // github
+  static const Color githubIcon = Color(0xFFBEBEBE);
+  static const Color githubPrimary = Color(0xFF6C6C6C);
+  static const Color githubSecondary = Color(0xFF3B3B3B);
+}
+
+</code></pre>
+<h2 is-upgraded>Adding Custom Fonts</h2>
+<p>We&#39;ll be using our own custom fonts as we want to make this app more unique and personal. We&#39;ll also add our own custom icon fonts as well.</p>
+<p>Download <a href="https://github.com/romanejaquez/imghosting/blob/main/portfolio_fonts.zip?raw=true" target="_blank">this zip file</a> which contains all custom fonts we&#39;ll use throughout the app. Grab all the <strong>.ttf</strong> file, and drop them inside the <strong>assets/fonts</strong> folder.</p>
+<p>Configure the <strong>pubspec.yaml</strong> to support the fonts just imported:</p>
+<pre><code language="language-dart" class="language-dart">//... in the pubspec.yaml, under the &#39;flutter&#39; section:
+
+fonts:
+    - family: PersonalPortfolioIcons
+      fonts:
+        - asset: assets/fonts/PersonalPortfolioIcons.ttf
+    - family: Product Sans
+      fonts:
+        - asset: assets/fonts/Product Sans Regular.ttf
+        - asset: assets/fonts/Product Sans Bold.ttf
+          weight: 900
+        - asset: assets/fonts/Product Sans Italic.ttf
+          style: italic
+
+</code></pre>
+<p>Go to the <strong>styles</strong> folder and add a file called <strong>personal_portfolio_icons.dart</strong> and add the following code:</p>
+<pre><code language="language-dart" class="language-dart">import &#39;package:flutter/material.dart&#39;;
+
+class PersonalPortfolioIcons {
+  PersonalPortfolioIcons._();
+
+  static const _kFontFam = &#39;PersonalPortfolioIcons&#39;;
+  static const String? _kFontPkg = null;
+
+  static Map&lt;String, IconData&gt; iconMap = {
+    &#39;badge&#39;: badge,
+    &#39;email&#39;: email,
+    &#39;github&#39;: github,
+    &#39;linkedin&#39;: linkedin,
+    &#39;qrcode&#39;: qrcode,
+    &#39;twitter&#39;: twitter,
+    &#39;user&#39;: user,
+    &#39;wave&#39;: wave,
+    &#39;web&#39;: web
+  };
+
+  static const IconData badge = IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData email = IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData github = IconData(0xe802, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData linkedin = IconData(0xe803, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData qrcode = IconData(0xe804, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData twitter = IconData(0xe805, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData user = IconData(0xe806, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData wave = IconData(0xe807, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData web = IconData(0xe808, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+
+  static IconData iconFromName(String icon) {
+    return iconMap[icon] ?? Icons.abc;
+  }
+}
+
+</code></pre>
+<h2 is-upgraded>Clean up the main.dart file</h2>
+<p>The <strong>main.dart</strong> file currently has a bunch of boilerplate code. Let&#39;s replace all that by creating a root widget app called <strong>PortfolioApp</strong> that encapsulates a <strong>MaterialApp</strong> widget with the following properties set:</p>
+<ul>
+<li>title: ‘Portfolio App&#39;</li>
+<li>theme: A <strong>ThemeData</strong> instance with the <strong>fontFamily</strong> property set to <strong>Product Sans</strong> (as one of the fonts imported)</li>
+<li>home: a placeholder <strong>SizedBox</strong> widget for now</li>
+</ul>
+<p>Your newly updated <strong>main.dart</strong> file should look like this:</p>
+<pre><code language="language-dart" class="language-dart">import &#39;package:flutter/material.dart&#39;;
+
+void main() {
+  runApp(const PortfolioApp());
+}
+
+class PortfolioApp extends StatelessWidget {
+  const PortfolioApp({super.key});
+
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: &#39;Portfolio App&#39;,
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        fontFamily: &#39;Product Sans&#39;,
+      ),
+      home: const SizedBox.shrink()
+    );
+  }
+}
+
+</code></pre>
+<h2 is-upgraded>Rebuild the App</h2>
+<p>Make sure to rebuild your app (do a full restart) before proceeding - we&#39;ve added a bunch of files and code so the app is due for a refresh. You won&#39;t see anything until the end of the next section, so be patient and carry on!</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Create your First Feature: The Splash Page" duration="0">
+        <p>We&#39;ll start by creating our first feature - a way to display a splash screen prior to loading the whole app. We&#39;ll use it later in the series for doing preloading of data and such.</p>
+<p>This is what we&#39;ll end up with:</p>
+<p class="image-container"><img alt="App" src="img/64591488c6d72ad5.gif"></p>
+<h2 is-upgraded>Create the Splash feature structure</h2>
+<p>Under the <strong>features</strong> folder, add a <strong>splash</strong> folder, with the following subfolders and files:</p>
+<ul>
+<li><strong>presentation</strong><ul>
+<li><strong>pages</strong><ul>
+<li><strong>splash.page.dart</strong>: This will represent the page-level widget that will hold the splash screen</li>
+</ul>
+</li>
+<li><strong>widgets</strong><ul>
+<li><strong>splash_loading.dart</strong>: This will be a widget that will hold the loading portion of the splash page.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 is-upgraded>Building the Splash Page</h2>
+<p>In the <strong>splash.page.dart</strong> file, create a <strong>StatelessWidget</strong> class called <strong>SplashPage</strong>, with a <strong>Scaffold</strong> containing a background Color, and a <strong>Container</strong> placeholder as its body:</p>
+<pre><code language="language-dart" class="language-dart">import &#39;package:flutter/material.dart&#39;;
+import &#39;package:roman_web_portfolio/styles/colors.dart&#39;;
+
+class SplashPage extends StatelessWidget {
+
+  static const String route = &#39;/splash&#39;;
+  const SplashPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: PersonalPortfolioColors.mainBlue,
+      body: Container()
+    );
+  }
+}
+
+</code></pre>
+<p>Proceed now to create the widget that will represent the loading portion of this page; you will see later why we&#39;re splitting it into a separate widget.</p>
+<p>Go to the <strong>splash</strong> feature again, and in the <strong>presentation/widgets</strong> folder, inside the <strong>splash_loading.dart</strong> file, add another <strong>StatelessWidget</strong> class called <strong>SplashLoading</strong> that takes a <strong>message</strong> String as input, and we&#39;ll follow the schematics below:</p>
+<p class="image-container"><img alt="App" src="img/96faecc07bba5d29.png"></p>
+<p>The widget should look like this:</p>
+<pre><code language="language-dart" class="language-dart">import &#39;package:flutter/material.dart&#39;;
+
+class SplashLoading extends StatelessWidget {
+
+  final String message;
+  const SplashLoading({
+    super.key,
+    required this.message  
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(
+            width: 60,
+            height: 60,
+            child: Stack(
+              children: const [
+                Center(
+                  child: Icon(
+                    Icons.account_circle, 
+                    color: Colors.white, 
+                    size: 50
+                  )
+                ),
+                Center(
+                  child: SizedBox(
+                    width: 60,
+                    height: 60,
+                    child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation(Colors.white),
+                    ),
+                  ),
+                )
+              ],
+            )
+          ),
+          const SizedBox(width: 20),
+          Text(message,
+            style: const TextStyle(color: Colors.white)
+          )
+        ]
+      )
+    );
+  }
+}
+
+</code></pre>
+<p>Now let&#39;s consume this widget back in the <strong>SplashPage</strong> page widget by dropping it right in the body of the <strong>Scaffold</strong> widget, as such (add the necessary imports):</p>
+<pre><code language="language-dart" class="language-dart">//... splash.page.dart
+//... rest of the code omitted for brevity
+
+@override
+Widget build(BuildContext context) {
+  return const Scaffold(
+    backgroundColor: PersonalPortfolioColors.mainBlue,
+    body: SplashLoading(
+      message: &#39;Loading an awesome,\nKick-ass Profile...&#39;
+    )
+  );
+}
+
+</code></pre>
+<p>Now that we have the page ready to be seen, go to the <strong>main.dart</strong> file and let&#39;s just check whether things are falling into place; replace the existing <strong>SizedBox</strong> widget from the body of the <strong>MaterialApp</strong> widget by our newly created <strong>SplashPage</strong> - just to see how it looks:</p>
+<pre><code language="language-dart" class="language-dart">//... main.dart
+//... rest of the code omitted for brevity
+
+// This widget is the root of your application.
+@override
+Widget build(BuildContext context) {
+  return MaterialApp(
+    title: &#39;Portfolio App&#39;,
+    debugShowCheckedModeBanner: false,
+    theme: ThemeData(
+      fontFamily: &#39;Product Sans&#39;,
+    ),
+    home: const SplashPage()
+  );
+}
+
+</code></pre>
+<p>Rebuild the app and reload the browser; with that change you should see the splash page in its full glory being displayed on the page - congrats if you made it this far!</p>
+<p>Let&#39;s proceed and set up the routing since we&#39;ll use named routes and the <strong>GoRouter</strong> package for performing navigation throughout this web app.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Set up the Navigation Strategy" duration="0">
+        <p>The navigation strategy for this app will be as follows:</p>
+<ul>
+<li>a root navigation for the splash screen and the main screen</li>
+<li>a nested navigation within main to allow users to navigate between the many sections available</li>
+<li>a navigation rail will be created that will allow users to select the nested page to go to</li>
+<li>an error page (for erroneous pages)</li>
+</ul>
+<p class="image-container"><img alt="App" src="img/8c3568c3a24a0314.png"></p>
+<p>The package we&#39;ll use is <a href="https://pub.dev/packages/go_router" target="_blank">Go_Router</a> supported by the Flutter team at Google, which is a declarative routing package for Flutter that uses the Router API to provide a convenient, url-based API for navigating between different screens. You can define URL patterns, navigate using a URL, handle deep links, and a number of other navigation-related scenarios.</p>
+<p>Following that declarative aspect, we&#39;ll go ahead and create a file that will encapsulate the routes.</p>
+<p>Start by creating a utilities class that will hold some unique keys that our navigation will require so we can refer to it programmamtically throughout the app.</p>
+<p>Create a file called <strong>utils.dart</strong> in the <strong>lib/helpers</strong> folder. This class will contain three important <strong>Global</strong> keys. <a href="https://api.flutter.dev/flutter/widgets/GlobalKey-class.html#:~:text=Global%20keys%20provide%20access%20to,another%20location%20in%20the%20tree." target="_blank">Global keys</a> are used to uniquely identify elements in the widget tree, whcih provide you access to their state, therefore we&#39;ll use them to refer to the navigation and the main scaffold on this app.</p>
+<h2 is-upgraded>utils.dart</h2>
+<pre><code language="language-flutter" class="language-flutter">import &#39;package:flutter/material.dart&#39;;
+
+class Utils {
+
+  static GlobalKey&lt;NavigatorState&gt; mainNav = GlobalKey();
+  static GlobalKey&lt;NavigatorState&gt; tabNav = GlobalKey();
+  static GlobalKey&lt;ScaffoldState&gt; mainScaffold = GlobalKey();
+}
+
+</code></pre>
+<p>Import the <strong>go_router</strong> package into your app via the <code>flutter pub add go_router</code>, which fetches it from *<strong>pub.dev</strong> and installs it onto your app. Execute the following command:</p>
+<pre><code language="language-flutter" class="language-flutter">flutter pub add go_router
+
+</code></pre>
+<p>Create a file called <strong>app_routes.dart</strong> inside the <strong>lib/routes</strong> folder, and add the initial configuration for our application navigation route strategy, as follows:</p>
+<pre><code language="language-flutter" class="language-flutter">import &#39;package:go_router/go_router.dart&#39;;
+import &#39;package:roman_web_portfolio/features/splash/presentation/pages/splash.page.dart&#39;;
+import &#39;package:roman_web_portfolio/helpers/utils.dart&#39;;
+
+class AppRoutes {
+
+  static final router = GoRouter(
+    initialLocation: SplashPage.route,
+    navigatorKey: Utils.mainNav,
+    routes: [
+      GoRoute(
+        parentNavigatorKey: Utils.mainNav,
+        path: SplashPage.route,
+        builder: (context, state) =&gt; const SplashPage(),
+      ),
+    ]
+  );
+}
+
+</code></pre>
+<p>Let&#39;s dissect this code.</p>
+<p>We create a <strong>static</strong> final instance of <strong>GoRouter</strong>, and pass the following initialization arguments:</p>
+<ul>
+<li>initialLocation: the initial location from where the app should launch; in this case, the splash page screen, denoted by the <strong>SplashPage.route</strong> property.</li>
+<li>navigatorKey: refers to the previously created <strong>Global</strong> key called <strong>mainNav</strong> for us to refer to the root navigation programmaticaly throughout our app</li>
+<li>routes: an array containing the many routes our app will be able to navigate the users to. For now, we&#39;ve created our first route, an instance of <strong>GoRoute</strong> with the following arguments: <ul>
+<li>parentNavigatorKey: the key corresponding to the parent navigation key (in our case, the same <strong>mainNav</strong>)</li>
+<li>path: the path that will resolve when users invoke a particular page. In our case, if the user doesn&#39;t put anything, it will return this page by default.</li>
+<li>builder: the builder method that will render the corresponding page widget to be returned upon the user invoking this route / path. In our case, the <strong>SplashPage</strong> will return, therefore when a request for this route is received, this method builds a widget and returns it.</li>
+</ul>
+</li>
+</ul>
+<p>Every page that needs to be navigated to <strong>MUST</strong> have a <strong>GoRoute</strong> route instance inside the <strong>routes</strong> array for this to work.</p>
+<h2 is-upgraded>Integrate the GoRouter navigation into our app.</h2>
+<p>Let&#39;s do some refactoring to integrate GoRouter to the app.</p>
+<p>Back on the <strong>main.dart</strong> file, refactor the <strong>MaterialApp</strong> widget and replace the default constructor by the <strong>MaterialApp.router</strong> constructor. Remove the <strong>home</strong> parameter since we won&#39;t be hardcoding the home page, but be fed by the router configuration available in the <strong>AppRoutes.router</strong> instance created earlier, and add the following parameters to it. Make sure to import the <strong>AppRoutes</strong> class:</p>
+<pre><code language="language-flutter" class="language-flutter">//... main.dart
+//... rest of the code
+
+// This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp.router(
+      title: &#39;Portfolio App&#39;,
+      theme: ThemeData(
+        fontFamily: &#39;Product Sans&#39;,
+      ),
+      debugShowCheckedModeBanner: false,
+      routeInformationProvider: AppRoutes.router.routeInformationProvider,
+      routeInformationParser: AppRoutes.router.routeInformationParser,
+      routerDelegate: AppRoutes.router.routerDelegate,
+    );
+  }
+
+//...
+
+</code></pre>
+<p>Notice the <strong>routeInformationProvider</strong>, <strong>routeInformationParser</strong>, and the <strong>routerDelegate</strong> are the hooks required to be added at the <strong>MaterialApp</strong> level to incorporate the navigation at the root level.</p>
+<p>Test that the navigation integration was successful by just running the app again (<code>flutter run -d chrome</code>) and you should see the same splash page, but now being served by the <strong>go_router</strong> implementation. Nice!</p>
+<p class="image-container"><img alt="App" src="img/64591488c6d72ad5.gif"></p>
+<p>When ready, hit <strong>Next</strong> to proceed.</p>
+<p>In the next section we&#39;ll tackle simulating a delay and navigating to the next page afterwards.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Creating the Shell Feature" duration="0">
+        <p>Create a feature folder called <strong>shell</strong>, and under it, the corresponding <strong>presentation/pages</strong> subfolders. Inside the <strong>pages</strong> subfolder, a file called <strong>portfoliomain.page.dart</strong> and add a class called <strong>PortFolioMainPage</strong> with the following content:</p>
+<pre><code language="language-flutter" class="language-flutter">import &#39;package:flutter/material.dart&#39;;
+import &#39;package:roman_web_portfolio/helpers/utils.dart&#39;;
+
+class PortfolioMainPage extends StatelessWidget {
+
+  static const String route = &#39;/main&#39;;
+
+  const PortfolioMainPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+     return Scaffold(
+      key: Utils.mainScaffold,
+      body: const Center(
+        child: Text(&#39;Main Page!&#39;)
+      )
+     );
+  }
+}
+
+</code></pre>
+<p>Notice the <strong>route</strong> property with the value <code>/main</code> - this is what we&#39;ll use to hook a route to our routing / navigation infrastructure, and the splash will direct the user there after a delay. Let&#39;s go to the <strong>app_routes.dart</strong> file inside the <strong>routes</strong> folder to add this temporary page to navigate to after the splash (with the required imports as usual):</p>
+<p><strong>THIS IS TEMPORARY AND WE WILL CHANGE IT LATER WITH THE NESTED NAVIGATION</strong></p>
+<pre><code language="language-flutter" class="language-flutter">//... in the app_routes.dart file, 
+//... inside the &#34;routes&#34; array, under the SplashPage route...
+
+GoRoute(
+    parentNavigatorKey: Utils.mainNav,
+    path: PortfolioMainPage.route,
+    builder: (context, state) =&gt; const PortfolioMainPage(),
+)
+
+</code></pre>
+<h3 is-upgraded>Implement a delay before navigating away</h3>
+<p>With the route in place, let&#39;s go back to our <strong>SplashPage</strong> page code, and implement the delay.</p>
+<p>Inside the <strong>build</strong> method, let&#39;s add a temporary <strong>Future.delay</strong> with a 2 second delay, after which it will invoke the callback supplied. This will be replaced by lazy-loading the data from the server corresponding to each page.</p>
+<p>Add the following code inside the <strong>build</strong> method of the <strong>SplashPage</strong> page widget:</p>
+<pre><code language="language-flutter" class="language-flutter">//... inside the build method:
+
+@override
+Widget build(BuildContext context) {
+
+  Future.delayed(const Duration(seconds: 2), () {
+    GoRouter.of(Utils.mainNav.currentContext!)
+      .go(PortfolioMainPage.route);
+  });
+
+  //... rest of the code
+}
+
+
+</code></pre>
+<p>What this will do is retrieve the <strong>GoRouter</strong> instance using the supplied <strong>BuildContext</strong> context, from which you can invoke one of its methods (in our case, <strong>.go()</strong>), which takes a string parameter - the name of the route to (in our case, the <strong>PortfolioPageMain</strong> page route <code>/main</code>).</p>
+<p>Take it for a spin and you should now see it come together: restart the app from the root (&#34;/&#34;), then you&#39;ll see the splash page briefly, followed by a navigation to the main page:</p>
+<p class="image-container"><img alt="App" src="img/bbf4d8604af7f54e.gif"></p>
+<p>Awesome! Splash page is hooked up! Let&#39;s proceed now and build out the shell / skeleton of our nested navigation strategy.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Set up the Nested Navigation Strategy for this app" duration="0">
+        <p>After the splash screen, we want to be able to land on a page that in turn has other sub-pages, so we can toggle them on and off using some common navigation patterns like a navigation rail on the left, and pages swap each other out. How do we accomplish this in Flutter? With <strong>go_router</strong> and the concept of <a href="https://pub.dev/documentation/go_router/latest/go_router/ShellRoute-class.html" target="_blank"><strong>ShellRoutes</strong></a>.</p>
+<p>A <strong>ShellRoute</strong> is a route that displays a UI shell around the matching child route.</p>
+<p>When a ShellRoute is added to the list of routes on GoRouter or GoRoute, a new Navigator is used to display any matching sub-routes, instead of placing them on the root Navigator.</p>
+<p class="image-container"><img alt="App" src="img/da1d8852785a3629.gif"></p>
+<h2 is-upgraded>Set up the GoRouter nested navigation configuration</h2>
+<p>Let&#39;s now proceed to create the corresponding configuration for the nested navigation.</p>
+<p>What we want is that when the user navigates to the <strong>main</strong> page after the splash screen, they remain there, while allowing to perform the navigation in place and swap pages in and out of the main page. The main page will serve as a &#34;<strong>shell</strong>&#34; so to speak for the rest of the pages to render themselves. They will share the same navigation bar, and the shell just swaps them in and out. This is where the <strong>ShellRoute</strong> comes into play.</p>
+<p>This is a schematic of how it works:</p>
+<p class="image-container"><img alt="App" src="img/fb62386a780a6810.png"></p>
+<p>Let&#39;s build that!</p>
+<p>Let&#39;s refactor the <strong>PortfolioMainPage</strong> which will serve as the &#34;shell&#34; container, through which the pages will be displayed.</p>
+<p>Add a required constructor parameter type <strong>Widget</strong> called <strong>child</strong>. The <strong>GoRouter</strong> navigation framework, upon swapping views due to a navigation request, will inject the corresponding page widget in here.</p>
+<pre><code language="language-flutter" class="language-flutter">//... portfoliomain.page.dart
+//... update the constructor and add
+// the &#39;child&#39; property
+
+final Widget child;
+const PortfolioMainPage({
+    super.key,
+    required this.child  
+});
+
+</code></pre>
+<p>Remove the <strong>Text</strong> widget inside the <strong>Center</strong> widget by the injected <strong>Widget</strong> named <strong>child</strong>. Your newly updated <strong>PortfolioMainPage</strong> should look like this (full code):</p>
+<pre><code language="language-dart" class="language-dart">import &#39;package:flutter/material.dart&#39;;
+import &#39;package:roman_web_portfolio/helpers/utils.dart&#39;;
+
+class PortfolioMainPage extends StatelessWidget {
+
+  static const String route = &#39;/main&#39;;
+
+  final Widget child;
+  const PortfolioMainPage({
+    super.key,
+    required this.child  
+  });
+
+
+  @override
+  Widget build(BuildContext context) {
+     return Scaffold(
+      key: Utils.mainScaffold,
+      body: child
+     );
+  }
+}
+
+</code></pre>
+<p>We&#39;re gonna need at least one additional feature to test out the shell feature, so let&#39;s start by creating the welcome feature - at least a placeholder for it, then we&#39;ll develop it further.</p>
+<h2 is-upgraded>Create the Welcome Feature</h2>
+<p>In the <strong>features</strong> folder, create a subfolder called <strong>welcome</strong>. This will be the feature that will represent the landing page right after the splash screen.</p>
+<p>Let&#39;s start by creating the following structure under <strong>features</strong>:</p>
+<ul>
+<li><strong>features</strong><ul>
+<li><strong>welcome</strong><ul>
+<li><strong>presentation</strong><ul>
+<li><strong>pages</strong><ul>
+<li>welcome.page.dart</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>We&#39;ll further develop it later but this is just to start hooking up the shell and child navigation.</p>
+<p>In the <strong>welcome.page.dart</strong> file, add a class called <strong>WelcomePage</strong> with the following content (just a placeholder for now):</p>
+<pre><code language="language-dart" class="language-dart">import &#39;package:flutter/material.dart&#39;;
+
+class WelcomePage extends StatelessWidget {
+
+  static const String route = &#34;/welcome&#34;;
+  const WelcomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Text(&#39;Welcome Page!&#39;),
+    );
+  }
+}
+
+</code></pre>
+<p>Now let&#39;s go to the <strong>app_routes.dart</strong> file, and set up the shell route and nested routes.</p>
+<p>Replace the existing <strong>GoRoute</strong> entry for the <strong>PortfolioMainPage</strong> by an instance of the <strong>ShellRoute</strong>:</p>
+<pre><code language="language-flutter" class="language-flutter">// add this under the existing SplashPageRoute by 
+// replacing the existing GoRoute entry for the PortfolioMainPage
+// by the following code:
+
+ShellRoute(
+    navigatorKey: Utils.tabNav,
+    builder: ((context, state, child) {
+       // pages get injected here
+    }),
+    routes: [
+        // all nested routes go here!
+    ]
+)
+
+</code></pre>
+<p>The <strong>ShellRoute</strong> instance will hold all the related sibling routes under the <strong>routes</strong> array, which will get swapped out inside the <strong>PortfolioMainPage</strong> page widget, which serves as their shell. Notice how the <strong>ShellRoute</strong> has its own <strong>navigatorKey</strong> (<strong>tabNav</strong>) we use this when we want to reference the navigation state for all the pages under this nested group. You use the context reference supplied via this global key to point the navigation to this route group whenever someone wants to navigate to any of the pages in the nested routes under it. More on this later.</p>
+<p>The key here is the <strong>builder</strong> callback, which routes the corresponding route&#39;s page widget via the <strong>child</strong> parameter, which in turn gets injected into the shell page (in our case, the <strong>PortfolioMainPage</strong>).</p>
+<p>Go ahead and add this piece of code into the <strong>ShellRoute</strong>&#39;s builder method:</p>
+<pre><code language="language-flutter" class="language-flutter">//... inside the builder method...
+
+return PortfolioMainPage(child: child);
+
+</code></pre>
+<p>Add a <strong>GoRoute</strong> route instance under the <strong>routes</strong> array of the <strong>ShellRoute</strong>, for each of the corresponding child pages (for now we only have the <strong>WelcomePage</strong> so let&#39;s just add that one):</p>
+<pre><code language="language-flutter" class="language-flutter">// app_routes.dart
+//... inside the routes array of the ShellRoute...
+
+routes: [
+    GoRoute(
+        parentNavigatorKey: Utils.tabNav,
+        path: WelcomePage.route,
+        pageBuilder: (context, state) {
+          return const NoTransitionPage(
+              child: WelcomePage()
+          );
+        }
+    ),
+]
+
+</code></pre>
+<p>Notice a slight change in the <strong>GoRoute</strong> instance this time around: instead of using the <strong>builder</strong> which builds the corresponding page widget and returns it (using the default transition out of the box from GoRouter which is a slide transition), we&#39;re using <strong>pageBuilder</strong>, which is used to customize the transition animation when that route becomes active. In our case we want to override it so as not to perform a slide transition but a &#34;no-transition&#34; animation, hence wrapping our page inside the <strong>NoTransition</strong> page, provided by <strong>go_router</strong>. Later we&#39;ll introduce how to do custom transitions using <strong>GoRouter</strong>.</p>
+<p>Let&#39;s go back to the <strong>SplashPage</strong> and replace the destination page after the delay.</p>
+<pre><code language="language-flutter" class="language-flutter">// inside the build, replace the destination page, 
+// and point it to the WelcomePage
+
+Future.delayed(const Duration(seconds: 2), () {
+  GoRouter.of(Utils.mainNav.currentContext!).go(WelcomePage.route);
+});
+
+</code></pre>
+<p>Testing the routing (manually for now) it should allow us to navigate to the corresponding pages. Your implementation should look as follows:</p>
+<p class="image-container"><img alt="App" src="img/942b72e151819752.gif"></p>
+<p>Since we don&#39;t want to be navigating these manually, let&#39;s create the navigation feature that will allow us to navigate to each one of these pages programmatically, as well as spruce up our shell page a bit, shall we?</p>
+<p>You can proceed from here to <a target="_blank">codelab #2</a> in the series then!</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Wrap-up" duration="0">
+        <p>In this codelab, we accomplished the following:</p>
+<ul>
+<li>Set up a Flutter Project with a basic project structure</li>
+<li>Installing custom fonts and icon fonts</li>
+<li>Set up a navigation strategy using GoRouter</li>
+<li>Creating Flutter layouts</li>
+<li>Implement a state management strategy using Provider</li>
+<li>Implement explicit animations</li>
+</ul>
+<p>If you liked this codelab, you might be interested in the next codelab (<a href="https://romanejaquez.github.io/flutterweb-codelab-portfolio1" target="_blank">part 2</a> of the series) if you are up for the challenge!</p>
+<h2 is-upgraded>Please don&#39;t forget to follow me on social media:</h2>
+<ul>
+<li>On Twitter (<a href="https://www.twitter.com/drcoderz" target="_blank">@drcoderz</a>)</li>
+<li>On YouTube (<a href="https://www.youtube.com/channel/UCKsp3r1ERjCpKJtD2n5WtPg" target="_blank">Roman Just Codes</a>)</li>
+<li>On my <a href="https://romanjustcodes.web.app/" target="_blank">Personal Portfolio</a></li>
+<li>On <a href="https://medium.com/@romanejaquez" target="_blank">Medium</a></li>
+<li>On <a href="https://www.linkedin.com/in/roman-jaquez-8941a424/" target="_blank">LinkedIn</a></li>
+</ul>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements-tmp/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements-tmp/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements-tmp/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements-tmp/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>

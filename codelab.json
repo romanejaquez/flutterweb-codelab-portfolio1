@@ -1,0 +1,25 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2023-05-07T15:56:53-04:00",
+  "id": "flutter-web-codelab-riverpod1",
+  "duration": 0,
+  "title": "Flutter Web Codelab (pt. 1) - Setting Up Your Flutter Web App",
+  "summary": "Flutter Web Codelab",
+  "source": "flutter_web_codelab_riverpod1.md",
+  "theme": "",
+  "status": [
+    "published"
+  ],
+  "category": [
+    "codelab",
+    "markdown"
+  ],
+  "tags": [
+    "web"
+  ],
+  "feedback": "https://romanjustcodes.web.app",
+  "url": "flutter-web-codelab-riverpod1"
+}
